@@ -4,7 +4,7 @@ import Route from '../../../../schemas/Route'
 
 class RoutesController {
   public async index (req: Request, res: Response):Promise<Response> {
-    const routes = await Route.find()
+    const routes = await Route.find().select('-__v -_id')
     return res.json(routes)
   }
 

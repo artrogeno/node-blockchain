@@ -6,7 +6,6 @@ import mongoose from 'mongoose'
 import routes from './routes'
 import Connection from './shared/middleware/mongoose'
 import Jwt from './shared/middleware/jwt'
-// import { mongo } from './shared/utils/config'
 
 class App {
   public express: express.Application
@@ -42,9 +41,6 @@ class App {
   }
 
   private database ():void {
-    // Connection.connect()
-    // mongoose.connect('mongodb://localhost:27017/node-blockchain', { useNewUrlParser: true })
-
     const url = this.connection.getUrlConnection()
     mongoose.connect(url, { useNewUrlParser: true })
   }

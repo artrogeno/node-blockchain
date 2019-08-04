@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express'
 
 import Route from '../../../schemas/Route'
 import Messages from '../../utils/messages'
-import { jwtSecret } from '../../utils/config'
+import { Config } from '../../../config'
 
 interface JwtRequest extends Request {
   token?: any
@@ -15,7 +15,7 @@ class JwtMiddleware extends Messages {
 
   constructor () {
     super()
-    this.jwtSecret = jwtSecret
+    this.jwtSecret = Config.jwtSecret
     this.validation = this.validation.bind(this)
   }
 
@@ -48,7 +48,7 @@ class JwtMiddleware extends Messages {
 
     try {
       const jwtVerifyAsync = promisify(jwt.verify)
-      const jwtToken = await jwtVerifyAsync(token, jwtSecret)
+      const jwtToken = await jwtVerifyAsync(token, this.jwtSecret)
       req.token = jwtToken
 
       return next()

@@ -1,48 +1,49 @@
 import mongoose from 'mongoose'
-import { env } from 'process'
-import 'dotenv/config'
+
+import { Config } from '../../../config'
 // import { mongo } from '../../utils/config'
 // import { logger } from '../utils/logger'
 
 class Connection {
   public connection
 
-  public dbUser: string
+  public user: string
 
-  public dbPass: string
+  public pass: string
 
-  public dbHost: string
+  public host: string
 
-  public dbPort: string
+  public port: string
 
-  public dbName: string
+  public name: string
 
-  public dbAuth: number
+  public auth: number
 
-  public dbAuthSrc: string
+  public authSrc: string
 
   // public logger: any
 
-  // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
   constructor () {
-    this.dbUser = env.DB_USER || ''
-    this.dbPass = env.DB_PASS || ''
-    this.dbHost = env.DB_HOST || ''
-    this.dbPort = env.DB_PORT || ''
-    this.dbName = env.DB_NAME || ''
-    this.dbAuth = Number(env.DB_AUTH) || 0
-    this.dbAuthSrc = env.DB_AUTH_SRC || ''
+    const { mongo: { user, pass, host, port, name, auth, authSrc } } = Config
+
+    this.user = user
+    this.pass = pass
+    this.host = host
+    this.port = port
+    this.name = name
+    this.auth = auth
+    this.authSrc = authSrc
   }
 
   public getUrlConnection () {
     let auth = ''
 
-    if (this.dbAuth === 1) {
-      auth = `${this.dbUser}:${this.dbPass}@`
+    if (this.auth === 1) {
+      auth = `${this.user}:${this.pass}@`
     }
-    return `mongodb://${auth}${this.dbHost}:${this.dbPort}/${
-      this.dbName
-    }?authSource=${this.dbAuthSrc}`
+    return `mongodb://${auth}${this.host}:${this.port}/${
+      this.name
+    }?authSource=${this.authSrc}`
   }
 
   public getDisconnect (event) {
