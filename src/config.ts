@@ -31,7 +31,9 @@ interface ConfigInterface {
   mongo?: any,
   production?: any,
   development?: any,
-  test?: any
+  test?: any,
+  log?: boolean,
+  logLevel: string
 }
 
 const config = {
@@ -41,6 +43,8 @@ const config = {
     port: env.PORT || 9000,
     ip: env.IP || '0.0.0.0',
     api: env.API || '',
+    log: env.LOG === 'true' || false,
+    logLevel: env.LOG_LEVEL || 'debug',
     masterKey: requireProcessEnv('MASTER_KEY'),
     jwtSecret: requireProcessEnv('JWT_SECRET'),
     mongo: {

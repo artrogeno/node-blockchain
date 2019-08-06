@@ -1,10 +1,9 @@
 import mongoose from 'mongoose'
 
 import { Config } from '../../../config'
-// import { mongo } from '../../utils/config'
-// import { logger } from '../utils/logger'
+import { logger } from '../logger'
 
-class Connection {
+export default class Connection {
   public connection
 
   public user: string
@@ -21,7 +20,7 @@ class Connection {
 
   public authSrc: string
 
-  // public logger: any
+  public logger: any
 
   constructor () {
     const { mongo: { user, pass, host, port, name, auth, authSrc } } = Config
@@ -33,6 +32,7 @@ class Connection {
     this.name = name
     this.auth = auth
     this.authSrc = authSrc
+    this.logger = logger
   }
 
   public getUrlConnection () {
@@ -67,10 +67,7 @@ class Connection {
       })
       this.connection = mongoConnection.connection
     } catch (error) {
-      console.error('Connecting database MongoDB error: ', error)
-      // this.logger.error('Connecting database MongoDB error: ', error)
+      this.logger.error('Connecting database MongoDB error: ', error)
     }
   }
 }
-
-export default new Connection()
