@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv-safe'
 import 'dotenv/config'
 
 /* istanbul ignore next */
-const requireProcessEnv = name => {
+const requireProcessEnv = (name: any) => {
   if (!env[name]) {
     throw new Error(`You must set the ${name} environment variable`)
   }

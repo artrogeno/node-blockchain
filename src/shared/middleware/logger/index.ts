@@ -3,13 +3,13 @@ import winston from 'winston'
 import config from '../../utils/config'
 
 class Logger {
-  public logger
+  public logger: any
 
-  public log
+  public log: any
 
-  public logLevel
+  public logLevel: any
 
-  public format
+  public format: any
 
   constructor () {
     this.log = config.log
